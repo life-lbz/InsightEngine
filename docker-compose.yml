@@ -1,0 +1,186 @@
+services:
+  # ── 基础设施层（data 网络）──
+  mysql:
+    image: mysql:8.0
+    container_name: insight-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-root123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-insight_engine}
+    ports:
+      - "13307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - data
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  redis:
+    image: redis:7-alpine
+    container_name: insight-redis
+    restart: unless-stopped
+    command: ["redis-server"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - data
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  milvus-etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    container_name: insight-etcd
+    restart: unless-stopped
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    networks:
+      - data
+
+  milvus-minio:
+    image: minio/minio:latest
+    container_name: insight-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data
+    networks:
+      - data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  milvus:
+    image: milvusdb/milvus:v2.4.0
+    container_name: insight-milvus
+    restart: unless-stopped
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: milvus-etcd:2379
+      MINIO_ADDRESS: milvus-minio:9000
+    ports:
+      - "19530:19530"
+    depends_on:
+      milvus-etcd:
+        condition: service_started
+      milvus-minio:
+        condition: service_started
+    volumes:
+      - milvus_data:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - data
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # ── 应用层（backend 网络）──
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: insight-backend
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-prod}
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-insight_engine}
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      MILVUS_URI: http://milvus:19530
+      MILVUS_DATABASE: ${MILVUS_DATABASE:-insight_engine}
+      LLM_API_KEY: ${LLM_API_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      ENABLE_FALLBACK_USERS: "false"
+      CORS_ALLOW_ORIGINS: '["http://localhost","http://localhost:5175","http://127.0.0.1:5175"]'
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      milvus:
+        condition: service_healthy
+    volumes:
+      - ./models:/app/models:ro
+      - backend_logs:/var/log/insight_engine
+    networks:
+      - backend
+      - data
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+
+  # ── 前端层（nginx 静态托管 + 反向代理）──
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: insight-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - frontend
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+networks:
+  data:
+    driver: bridge
+    internal: false
+  backend:
+    driver: bridge
+    internal: false
+  frontend:
+    driver: bridge
+    internal: false
+
+volumes:
+  mysql_data:
+  redis_data:
+  etcd_data:
+  minio_data:
+  milvus_data:
+  backend_logs:

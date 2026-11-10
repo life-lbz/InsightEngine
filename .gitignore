@@ -1,0 +1,30 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.local
+
+# ── Node.js ──
+node_modules/
+dist/
+build/
+.vite/
+*.log
+
+# ── IDE ──
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── 系统 ──
+.DS_Store
+Thumbs.db
+
+# ── 临时文件 ──
+*.tmp
+*.bak
+*.zip

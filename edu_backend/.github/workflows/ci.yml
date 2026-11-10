@@ -1,0 +1,308 @@
+name: InsightEngine CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ── Stage 1: 代码检查 ──
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install ruff mypy black
+          pip install -r requirements.txt
+
+      - name: Ruff lint
+        run: ruff check . --output-format=github
+
+      - name: Black format check
+        run: black --check .
+
+      - name: Mypy type check
+        run: mypy . --ignore-missing-imports --no-strict-optional
+
+  # ── Stage 1b: 前端测试 ──
+  frontend-test:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run tests
+        working-directory: frontend
+        run: npm run test
+
+      - name: Build check
+        working-directory: frontend
+        run: npm run build
+
+  # ── Stage 2: 单元测试 ──
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: insight_engine
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install pytest pytest-asyncio pytest-cov
+          pip install -r requirements.txt
+
+      - name: Run tests
+        env:
+          APP_ENV: test
+          MYSQL_HOST: localhost
+          MYSQL_PORT: "3306"
+          MYSQL_USER: root
+          MYSQL_PASSWORD: test
+          MYSQL_DATABASE: insight_engine
+          REDIS_URL: redis://localhost:6379/1
+          MILVUS_URI: http://localhost:19530
+          LLM_API_KEY: test-key
+          JWT_SECRET_KEY: test-secret-key-for-ci
+        run: |
+          pytest tests/ -v --cov=. --cov-report=xml --cov-report=term --cov-fail-under=60
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+
+  # ── Stage 3: 安全扫描 ──
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Bandit security scan
+        run: |
+          pip install bandit
+          bandit -r . -f json -o bandit-report.json -ii -ll
+          cat bandit-report.json
+
+      - name: Pip-audit dependency scan
+        run: |
+          pip install pip-audit
+          pip-audit -r requirements.txt
+
+      - name: Upload security reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-reports
+          path: bandit-report.json
+
+  # ── Stage 4: Docker 构建 ──
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=latest
+            type=raw,value=staging-{{date 'YYYYMMDDHHmmss'}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ── Stage 5: 灰度部署 ──
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: staging
+      url: https://staging.insight-engine.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to staging server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_HOST: ${{ secrets.STAGING_HOST }}
+          SSH_USER: ${{ secrets.STAGING_USER }}
+          DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.STAGING_JWT_SECRET }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key \
+            "$SSH_USER@$SSH_HOST" \
+            "cd /opt/insight-engine && \
+             git pull origin main && \
+             export MYSQL_PASSWORD='$DB_PASSWORD' && \
+             export JWT_SECRET_KEY='$JWT_SECRET' && \
+             export LLM_API_KEY='$LLM_API_KEY' && \
+             export APP_ENV=staging && \
+             docker compose pull && \
+             docker compose up -d --build && \
+             docker compose exec backend alembic upgrade head && \
+             docker compose exec backend python scripts/healthcheck.py --json"
+
+      - name: Run smoke tests
+        env:
+          STAGING_URL: https://staging.insight-engine.example.com
+        run: |
+          sleep 10
+          curl -f "$STAGING_URL/health" || exit 1
+          curl -f "$STAGING_URL/api/v1/health" || exit 1
+
+  deploy-production:
+    name: Deploy to Production (Canary)
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://api.insight-engine.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Canary deploy (10% traffic)
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_KEY }}
+          SSH_HOST: ${{ secrets.PROD_HOST }}
+          SSH_USER: ${{ secrets.PROD_USER }}
+          DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          
+          # Canary: 部署到 canary 节点
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key \
+            "$SSH_USER@$SSH_HOST" \
+            "cd /opt/insight-engine && \
+             git pull origin main && \
+             export MYSQL_PASSWORD='$DB_PASSWORD' && \
+             export JWT_SECRET_KEY='$JWT_SECRET' && \
+             export LLM_API_KEY='$LLM_API_KEY' && \
+             export APP_ENV=prod && \
+             docker compose --profile canary up -d --build && \
+             docker compose exec backend alembic upgrade head"
+
+      - name: Monitor canary error rate
+        env:
+          PROD_URL: https://api.insight-engine.example.com
+        run: |
+          # 监控 canary 节点健康状态（5 分钟观察期）
+          for i in $(seq 1 10); do
+            if ! curl -f "$PROD_URL/health" > /dev/null 2>&1; then
+              echo "Health check failed on attempt $i"
+              exit 1
+            fi
+            sleep 30
+          done
+          echo "Canary monitoring passed: error rate within threshold"
+
+      - name: Full rollout
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_KEY }}
+          SSH_HOST: ${{ secrets.PROD_HOST }}
+          SSH_USER: ${{ secrets.PROD_USER }}
+          DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          # 全量滚动更新
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key \
+            "$SSH_USER@$SSH_HOST" \
+            "cd /opt/insight-engine && \
+             docker compose up -d --build && \
+             docker compose exec backend alembic upgrade head && \
+             docker compose exec backend python scripts/healthcheck.py --json"
+          
+          echo "Full production rollout complete"

@@ -1,0 +1,100 @@
+question_id,course_id,chapter_id,point_id,question_type,difficulty,question,answer,explanation
+jm_g7s1_q1,junior_math_g7s1,jm_g7s1_c1,jm_g7s1_kp1,single_choice,easy,计算 (−5)+3 的结果是？,−2,异号两数相加取绝对值较大加数的符号：5−3=2，结果为−2。
+jm_g7s1_q2,junior_math_g7s1,jm_g7s1_c3,jm_g7s1_kp3,single_choice,medium,方程 3x+2=11 的解是？,x=3,移项得 3x=9，两边除以 3 得 x=3。
+jm_g7s1_q3,junior_math_g7s1,jm_g7s1_c2,jm_g7s1_kp2,single_choice,medium,合并同类项：3a+2a−a 的结果是？,4a,3a+2a−a=(3+2−1)a=4a。
+jm_g7s2_q1,junior_math_g7s2,jm_g7s2_c1,jm_g7s2_kp1,single_choice,easy,下列条件中能判定 a∥b 的是？,同位角相等,同位角相等两直线平行，是平行线判定公理。
+jm_g7s2_q2,junior_math_g7s2,jm_g7s2_c2,jm_g7s2_kp2,single_choice,medium,16 的平方根是？,±4,16 的平方根有两个：4 和 −4。
+jm_g7s2_q3,junior_math_g7s2,jm_g7s2_c3,jm_g7s2_kp3,single_choice,medium,解方程组 x+y=5，x−y=1 得 x 的值是？,3,两式相加得 2x=6，所以 x=3。
+jm_g8s1_q1,junior_math_g8s1,jm_g8s1_c1,jm_g8s1_kp1,single_choice,easy,三角形内角和等于？,180°,三角形内角和定理：三个内角之和为 180°。
+jm_g8s1_q2,junior_math_g8s1,jm_g8s1_c2,jm_g8s1_kp2,single_choice,medium,下列条件能判定两个三角形全等的是？,SSS,三边对应相等的两个三角形全等（SSS）。
+jm_g8s1_q3,junior_math_g8s1,jm_g8s1_c3,jm_g8s1_kp3,single_choice,medium,分解因式 x²−4 的结果是？,(x+2)(x−2),利用平方差公式 a²−b²=(a+b)(a−b)。
+jm_g8s2_q1,junior_math_g8s2,jm_g8s2_c1,jm_g8s2_kp1,single_choice,easy,√18 化简为最简二次根式是？,3√2,√18=√(9×2)=3√2。
+jm_g8s2_q2,junior_math_g8s2,jm_g8s2_c2,jm_g8s2_kp2,single_choice,medium,直角三角形两直角边分别为3和4，斜边长为？,5,由勾股定理 c=√(3²+4²)=√25=5。
+jm_g8s2_q3,junior_math_g8s2,jm_g8s2_c3,jm_g8s2_kp3,single_choice,medium,一次函数 y=2x−1 的图象经过第几象限？,一、三、四,k=2>0 过一三象限，b=−1<0 与y轴负半轴相交，所以过一三四象限。
+jm_g9s1_q1,junior_math_g9s1,jm_g9s1_c1,jm_g9s1_kp1,single_choice,medium,方程 x²−5x+6=0 的两根是？,x₁=2，x₂=3,因式分解得 (x−2)(x−3)=0，所以 x=2 或 3。
+jm_g9s1_q2,junior_math_g9s1,jm_g9s1_c2,jm_g9s1_kp2,single_choice,medium,抛物线 y=x²−4x+3 的对称轴是？,x=2,对称轴 x=−b/(2a)=4/2=2。
+jm_g9s1_q3,junior_math_g9s1,jm_g9s1_c3,jm_g9s1_kp3,single_choice,hard,半径为5的圆中，圆心到直线距离为3，直线与圆的位置关系是？,相交,d=3<r=5，所以直线与圆相交。
+jm_g9s2_q1,junior_math_g9s2,jm_g9s2_c1,jm_g9s2_kp1,single_choice,medium,反比例函数 y=6/x 的图象在第几象限？,一、三,k=6>0，图象位于第一、三象限。
+jm_g9s2_q2,junior_math_g9s2,jm_g9s2_c2,jm_g9s2_kp2,single_choice,medium,△ABC∽△DEF，相似比为2:3，则面积比为？,4:9,面积比等于相似比的平方：4:9。
+jm_g9s2_q3,junior_math_g9s2,jm_g9s2_c3,jm_g9s2_kp3,single_choice,hard,sin30° 的值是？,1/2,特殊角三角函数值：sin30°=1/2。
+je_g7s1_q1,junior_english_g7s1,je_g7s1_c1,je_g7s1_kp1,single_choice,easy,She ___ a student. 空格处应填？,is,主语 she 是第三人称单数，be 动词用 is。
+je_g7s1_q2,junior_english_g7s1,je_g7s1_c2,je_g7s1_kp2,single_choice,medium,He ___ to school every day. 空格处应填？,goes,主语 he 第三人称单数，go 加 es。
+je_g7s1_q3,junior_english_g7s1,je_g7s1_c3,je_g7s1_kp3,single_choice,easy,下列名词复数形式正确的是？,box→boxes,box 以 x 结尾加 es。
+je_g7s2_q1,junior_english_g7s2,je_g7s2_c1,je_g7s2_kp1,single_choice,easy,下列动词过去式错误的是？,go→goed,go 是不规则动词，过去式为 went。
+je_g7s2_q2,junior_english_g7s2,je_g7s2_c2,je_g7s2_kp2,single_choice,medium,Look! The boys ___ football. 空格处应填？,are playing,look 提示正在发生，用现在进行时。
+je_g7s2_q3,junior_english_g7s2,je_g7s2_c3,je_g7s2_kp3,single_choice,medium,I ___ swim well. 空格处应填？,can,can 表示能力"会、能"。
+je_g8s1_q1,junior_english_g8s1,je_g8s1_c1,je_g8s1_kp1,single_choice,easy,下列形容词比较级正确的是？,big→bigger,big 是重读闭音节双写 g 加 er。
+je_g8s1_q2,junior_english_g8s1,je_g8s1_c2,je_g8s1_kp2,single_choice,medium,There ___ a sports meeting tomorrow. 空格处应填？,will be,tomorrow 提示一般将来时，there be 将来时用 there will be。
+je_g8s1_q3,junior_english_g8s1,je_g8s1_c3,je_g8s1_kp3,single_choice,medium,He wants ___ a doctor. 空格处应填？,to be,want to do sth. 固定搭配，想成为医生用 to be。
+je_g8s2_q1,junior_english_g8s2,je_g8s2_c1,je_g8s2_kp1,single_choice,easy,At 8:00 last night, I ___ my homework. 空格处应填？,was doing,过去某一时刻正在做，用过去进行时。
+je_g8s2_q2,junior_english_g8s2,je_g8s2_c2,je_g8s2_kp2,single_choice,medium,I ___ this book already. 空格处应填？,have read,already 提示现在完成时。
+je_g8s2_q3,junior_english_g8s2,je_g8s2_c3,je_g8s2_kp3,single_choice,medium,I don't know ___ he will come. 空格处应填？,whether,宾语从句中表示"是否"用 whether/if。
+je_g9s1_q1,junior_english_g9s1,je_g9s1_c1,je_g9s1_kp1,single_choice,medium,The book ___ I bought yesterday is interesting. 空格处应填？,that,先行词指物，关系代词用 that 或 which。
+je_g9s1_q2,junior_english_g9s1,je_g9s1_c2,je_g9s1_kp2,single_choice,medium,He used to ___ up early. 空格处应填？,get,used to do sth. 过去常常做某事，后接动词原形。
+je_g9s1_q3,junior_english_g9s1,je_g9s1_c3,je_g9s1_kp3,short_answer,medium,做阅读理解时遇到生词应优先怎么做？,结合上下文猜测词义,根据语境线索推断生词含义是常用阅读策略。
+je_g9s2_q1,junior_english_g9s2,je_g9s2_c1,je_g9s2_kp1,single_choice,medium,If it ___ tomorrow, we will stay at home. 空格处应填？,rains,主将从现：条件状语从句用一般现在时。
+je_g9s2_q2,junior_english_g9s2,je_g9s2_c2,je_g9s2_kp2,single_choice,medium,The number of the students in our class ___ 50. 空格处应填？,is,the number of 作主语谓语用单数。
+je_g9s2_q3,junior_english_g9s2,je_g9s2_c3,je_g9s2_kp3,short_answer,hard,中考英语作文的一般结构是什么？,开头-正文-结尾三段式,通常采用三段式：开头点题、正文展开要点、结尾总结升华。
+jp_g8s1_q1,junior_physics_g8s1,jp_g8s1_c1,jp_g8s1_kp1,single_choice,easy,汽车5秒行驶了100米，平均速度是？,20m/s,v=s/t=100/5=20m/s。
+jp_g8s1_q2,junior_physics_g8s1,jp_g8s1_c2,jp_g8s1_kp2,single_choice,medium,男低音与女高音的区别主要体现在？,音调不同,音调由频率决定，男低音频率低、女高音频率高。
+jp_g8s1_q3,junior_physics_g8s1,jp_g8s1_c3,jp_g8s1_kp3,single_choice,medium,平面镜成像的特点是？,正立等大的虚像,平面镜成等大、正立的虚像，像与物到镜面距离相等。
+jp_g8s2_q1,junior_physics_g8s2,jp_g8s2_c1,jp_g8s2_kp1,single_choice,easy,重力的方向总是？,竖直向下,重力方向竖直向下指向地心。
+jp_g8s2_q2,junior_physics_g8s2,jp_g8s2_c2,jp_g8s2_kp2,single_choice,medium,质量为200g的物体，重力约为？,2N,G=mg=0.2×10=2N。
+jp_g8s2_q3,junior_physics_g8s2,jp_g8s2_c3,jp_g8s2_kp3,single_choice,medium,潜水艇在水中下潜过程中浮力？,保持不变,浸没后 V排 不变，浮力不变（不考虑深度对密度的影响）。
+jp_g9s1_q1,junior_physics_g9s1,jp_g9s1_c1,jp_g9s1_kp1,single_choice,medium,水的比热容是 4.2×10³J/(kg·℃)，表示？,1kg水温度升高1℃吸收4.2×10³J热量,比热容的物理意义：单位质量物质温度升高1℃吸收的热量。
+jp_g9s1_q2,junior_physics_g9s1,jp_g9s1_c2,jp_g9s1_kp2,single_choice,easy,下列属于用电器的是？,电灯,电灯将电能转化为光能，属于用电器。
+jp_g9s1_q3,junior_physics_g9s1,jp_g9s1_c3,jp_g9s1_kp3,single_choice,medium,电阻10Ω的导体两端电压5V，通过电流是？,0.5A,I=U/R=5/10=0.5A。
+jp_g9s2_q1,junior_physics_g9s2,jp_g9s2_c1,jp_g9s2_kp1,single_choice,medium,额定功率为100W的灯泡正常工作1小时消耗电能？,0.1kW·h,W=Pt=0.1kW×1h=0.1kW·h。
+jp_g9s2_q2,junior_physics_g9s2,jp_g9s2_c2,jp_g9s2_kp2,single_choice,medium,发电机的工作原理是？,电磁感应,发电机利用电磁感应现象将机械能转化为电能。
+jp_g9s2_q3,junior_physics_g9s2,jp_g9s2_c3,jp_g9s2_kp3,short_answer,easy,能量守恒定律的内容是什么？,能量既不会凭空产生也不会凭空消失，只会从一种形式转化为另一种形式或从一个物体转移到另一个物体,能量守恒定律是自然界最普遍的规律之一。
+sm_g10s1_q1,senior_math_g10s1,sm_g10s1_c1,sm_g10s1_kp1,single_choice,medium,已知集合 A={1,2,3}，B={2,3,4}，则 A∩B=？,{2,3},交集是既属于A又属于B的元素：2和3。
+sm_g10s1_q2,senior_math_g10s1,sm_g10s1_c2,sm_g10s1_kp2,single_choice,medium,log₂8 的值是？,3,因为 2³=8，所以 log₂8=3。
+sm_g10s1_q3,senior_math_g10s1,sm_g10s1_c3,sm_g10s1_kp3,single_choice,medium,二次函数 y=x²−2x+3 的最小值是？,2,配方得 y=(x−1)²+2，当 x=1 时取最小值 2。
+sm_g10s2_q1,senior_math_g10s2,sm_g10s2_c1,sm_g10s2_kp1,single_choice,medium,sin(π/6) 的值是？,1/2,π/6 即 30°，sin30°=1/2。
+sm_g10s2_q2,senior_math_g10s2,sm_g10s2_c2,sm_g10s2_kp2,single_choice,medium,已知向量 a=(1,2)，b=(3,4)，则 a·b=？,11,a·b=1×3+2×4=11。
+sm_g10s2_q3,senior_math_g10s2,sm_g10s2_c3,sm_g10s2_kp3,single_choice,easy,复数 (1+i)(1−i) 的值是？,2,利用平方差公式：1−i²=1+1=2。
+sm_g11s1_q1,senior_math_g11s1,sm_g11s1_c1,sm_g11s1_kp1,single_choice,medium,空间向量 a=(1,0,0)，b=(0,1,0)，则 cos⟨a,b⟩=？,0,a·b=0，两向量垂直，夹角余弦值为 0。
+sm_g11s1_q2,senior_math_g11s1,sm_g11s1_c2,sm_g11s1_kp2,single_choice,medium,圆 x²+y²−4x=0 的圆心坐标是？,(2,0),配方得 (x−2)²+y²=4，圆心为 (2,0)。
+sm_g11s1_q3,senior_math_g11s1,sm_g11s1_c3,sm_g11s1_kp3,single_choice,hard,椭圆 x²/16+y²/9=1 的离心率是？,√7/4,c=√(16−9)=√7，e=c/a=√7/4。
+sm_g11s2_q1,senior_math_g11s2,sm_g11s2_c1,sm_g11s2_kp1,single_choice,medium,等差数列 1,3,5,7,… 的第10项是？,19,通项 aₙ=1+2(n−1)，a₁₀=1+18=19。
+sm_g11s2_q2,senior_math_g11s2,sm_g11s2_c2,sm_g11s2_kp2,single_choice,medium,函数 f(x)=x³−3x 的极小值点是？,x=1,f′(x)=3x²−3=3(x+1)(x−1)，x=1 处由减变增为极小值点。
+sm_g11s2_q3,senior_math_g11s2,sm_g11s2_c3,sm_g11s2_kp3,single_choice,medium,从5个人中选2人参加比赛，有多少种选法？,10种,C(5,2)=5×4/2=10。
+sm_g12s1_q1,senior_math_g12s1,sm_g12s1_c1,sm_g12s1_kp1,single_choice,hard,方程 x³−3x+1=0 在区间 (0,1) 内的零点个数是？,1个,f(0)=1>0，f(1)=−1<0，由零点存在定理至少一个；f′(x)=3x²−3<0 单调递减，所以恰有1个。
+sm_g12s1_q2,senior_math_g12s1,sm_g12s1_c2,sm_g12s1_kp2,single_choice,medium,在△ABC中，A=60°，B=45°，则 C=？,75°,三角形内角和 180°−60°−45°=75°。
+sm_g12s1_q3,senior_math_g12s1,sm_g12s1_c3,sm_g12s1_kp3,single_choice,hard,抛物线 y²=4x 的焦点坐标是？,(1,0),2p=4，p=2，焦点 (p/2,0)=(1,0)。
+sm_g12s2_q1,senior_math_g12s2,sm_g12s2_c1,sm_g12s2_kp1,short_answer,hard,导数压轴题中证明不等式恒成立通常的思路是什么？,构造函数求最值或分离参数转化为最值问题,常用方法：构造函数利用导数求最值、分离参数、放缩法等。
+sm_g12s2_q2,senior_math_g12s2,sm_g12s2_c2,sm_g12s2_kp2,short_answer,medium,高考数学答题的时间分配原则是什么？,先易后难、合理取舍,按"先易后难"顺序作答，小题控制在合理时间内，压轴题留足思考时间。
+sp_g10s1_q1,senior_physics_g10s1,sp_g10s1_c1,sp_g10s1_kp1,single_choice,medium,汽车从静止开始以2m/s²匀加速行驶，5s末的速度是？,10m/s,v=at=2×5=10m/s。
+sp_g10s1_q2,senior_physics_g10s1,sp_g10s1_c2,sp_g10s1_kp2,single_choice,medium,质量为2kg的物体受合力4N，加速度为？,2m/s²,a=F/m=4/2=2m/s²。
+sp_g10s1_q3,senior_physics_g10s1,sp_g10s1_c3,sp_g10s1_kp3,single_choice,medium,电梯加速上升时，乘客处于？,超重状态,加速度向上为超重，支持力大于重力。
+sp_g10s2_q1,senior_physics_g10s2,sp_g10s2_c1,sp_g10s2_kp1,single_choice,medium,平抛运动可以分解为？,水平匀速直线运动和竖直自由落体,平抛运动水平方向匀速、竖直方向自由落体。
+sp_g10s2_q2,senior_physics_g10s2,sp_g10s2_c2,sp_g10s2_kp2,single_choice,medium,第一宇宙速度约为？,7.9km/s,第一宇宙速度是卫星最小发射速度，约7.9km/s。
+sp_g10s2_q3,senior_physics_g10s2,sp_g10s2_c3,sp_g10s2_kp3,single_choice,medium,质量为1kg的物体速度由2m/s增至4m/s，合外力做功？,6J,动能定理 W=½mv₂²−½mv₁²=8−2=6J。
+sp_g11s1_q1,senior_physics_g11s1,sp_g11s1_c1,sp_g11s1_kp1,single_choice,medium,质量2kg物体速度为3m/s，其动量是？,6kg·m/s,p=mv=2×3=6kg·m/s。
+sp_g11s1_q2,senior_physics_g11s1,sp_g11s1_c2,sp_g11s1_kp2,single_choice,medium,电场中某点放电荷q受电场力F，则该点场强为？,E=F/q,场强定义式 E=F/q，与试探电荷无关。
+sp_g11s1_q3,senior_physics_g11s1,sp_g11s1_c3,sp_g11s1_kp3,single_choice,hard,电动势6V内阻1Ω的电源接3Ω外电阻，路端电压为？,4.5V,I=E/(R+r)=6/4=1.5A，U=IR=4.5V。
+sp_g11s2_q1,senior_physics_g11s2,sp_g11s2_c1,sp_g11s2_kp1,single_choice,medium,带电粒子垂直进入匀强磁场做匀速圆周运动，其运动半径与速度的关系是？,r=mv/qB,由 qvB=mv²/r 得 r=mv/qB，速度越大半径越大。
+sp_g11s2_q2,senior_physics_g11s2,sp_g11s2_c2,sp_g11s2_kp2,single_choice,medium,穿过线圈的磁通量增大时，感应电流的磁场方向与原磁场？,相反,楞次定律"增反减同"：磁通量增大时感应电流磁场与原磁场方向相反。
+sp_g11s2_q3,senior_physics_g11s2,sp_g11s2_c3,sp_g11s2_kp3,single_choice,medium,理想变压器原副线圈电压之比等于？,匝数之比,U₁/U₂=n₁/n₂，电压与匝数成正比。
+sp_g12s1_q1,senior_physics_g12s1,sp_g12s1_c1,sp_g12s1_kp1,short_answer,hard,处理力电综合问题的基本思路是什么？,先受力分析求加速度，再结合运动学、能量或动量求解,按"力→运动→能量/动量"的链条分步分析，注意过程分段。
+sp_g12s1_q2,senior_physics_g12s1,sp_g12s1_c2,sp_g12s1_kp2,short_answer,medium,游标卡尺读数时应注意什么？,先读主尺再读游标尺，注意精度与估读,游标卡尺不需估读，按精度读数；螺旋测微器需估读到0.001mm。
+sp_g12s1_q3,senior_physics_g12s1,sp_g12s1_c3,sp_g12s1_kp3,short_answer,medium,力学板块中功能关系与动量守恒如何选择？,涉及时间用动量定理，涉及位移用动能定理，碰撞用动量守恒,优先按守恒条件判断：无外力时用动量守恒，只有保守力时用机械能守恒。
+sp_g12s2_q1,senior_physics_g12s2,sp_g12s2_c1,sp_g12s2_kp1,short_answer,hard,多过程物理压轴题的处理策略是什么？,分段分析、找衔接点、全程列式,将复杂过程拆分为若干简单过程，抓住各段衔接处的速度或能量关系。
+sp_g12s2_q2,senior_physics_g12s2,sp_g12s2_c2,sp_g12s2_kp2,short_answer,medium,高考物理答题的规范要求有哪些？,书写必要文字说明、正确公式、代入数值单位,规范书写公式、代入数据并注明单位，计算题要有过程分意识。
+sc_g10s1_q1,senior_chemistry_g10s1,sc_g10s1_c1,sc_g10s1_kp1,single_choice,medium,下列物质中属于电解质的是？,NaCl,NaCl 在水溶液或熔融状态下能导电，是电解质。
+sc_g10s1_q2,senior_chemistry_g10s1,sc_g10s1_c2,sc_g10s1_kp2,single_choice,medium,反应 Fe+CuSO₄=FeSO₄+Cu 中被氧化的物质是？,Fe,Fe 的化合价由0升高到+2，失去电子被氧化。
+sc_g10s1_q3,senior_chemistry_g10s1,sc_g10s1_c3,sc_g10s1_kp3,single_choice,medium,下列物质中既能与酸反应又能与碱反应的是？,NaHCO₃,NaHCO₃ 是弱酸酸式盐，能与酸反应放出CO₂，也能与碱反应。
+sc_g10s2_q1,senior_chemistry_g10s2,sc_g10s2_c1,sc_g10s2_kp1,single_choice,medium,检验 Cl⁻ 常用的试剂是？,AgNO₃溶液和稀硝酸,加入 AgNO₃ 生成不溶于稀硝酸的白色 AgCl 沉淀。
+sc_g10s2_q2,senior_chemistry_g10s2,sc_g10s2_c2,sc_g10s2_kp2,single_choice,medium,实验室制取氨气常用的试剂是？,NH₄Cl和Ca(OH)₂,铵盐与碱共热制取氨气：2NH₄Cl+Ca(OH)₂=CaCl₂+2NH₃↑+2H₂O。
+sc_g10s2_q3,senior_chemistry_g10s2,sc_g10s2_c3,sc_g10s2_kp3,single_choice,medium,同一周期从左到右元素非金属性变化趋势是？,逐渐增强,同一周期从左到右原子半径减小，得电子能力增强，非金属性增强。
+sc_g11s1_q1,senior_chemistry_g11s1,sc_g11s1_c1,sc_g11s1_kp1,single_choice,medium,增大反应物浓度对化学平衡的影响是？,平衡向正反应方向移动,根据勒夏特列原理，增大反应物浓度平衡向减弱这种改变的方向移动。
+sc_g11s1_q2,senior_chemistry_g11s1,sc_g11s1_c2,sc_g11s1_kp2,single_choice,medium,25℃时纯水的 pH 是？,7,25℃时 Kw=10⁻¹⁴，纯水中 c(H⁺)=10⁻⁷，pH=7。
+sc_g11s1_q3,senior_chemistry_g11s1,sc_g11s1_c3,sc_g11s1_kp3,single_choice,hard,升高温度对吸热反应的平衡常数K的影响是？,K增大,吸热反应升温平衡正向移动，K增大。
+sc_g11s2_q1,senior_chemistry_g11s2,sc_g11s2_c1,sc_g11s2_kp1,single_choice,medium,分子式 C₄H₁₀ 的烷烃有几种同分异构体？,2种,正丁烷和异丁烷两种。
+sc_g11s2_q2,senior_chemistry_g11s2,sc_g11s2_c2,sc_g11s2_kp2,single_choice,medium,乙烯能使溴水褪色，反应类型是？,加成反应,乙烯含碳碳双键，与溴发生加成反应。
+sc_g11s2_q3,senior_chemistry_g11s2,sc_g11s2_c3,sc_g11s2_kp3,single_choice,hard,乙醇催化氧化的产物是？,乙醛,2CH₃CH₂OH+O₂→2CH₃CHO+2H₂O（Cu催化加热）。
+sc_g12s1_q1,senior_chemistry_g12s1,sc_g12s1_c1,sc_g12s1_kp1,short_answer,medium,元素化合物推断题的一般思路是什么？,抓特征反应和特征性质，利用转化关系逐步推断,以特征颜色、沉淀、气体等为突破口，结合转化网络推断。
+sc_g12s1_q2,senior_chemistry_g12s1,sc_g12s1_c2,sc_g12s1_kp2,short_answer,hard,电化学综合题如何判断原电池正负极？,较活泼金属为负极，发生氧化反应,负极失电子发生氧化反应，正极得电子发生还原反应。
+sc_g12s1_q3,senior_chemistry_g12s1,sc_g12s1_c3,sc_g12s1_kp3,short_answer,hard,限定条件书写同分异构体应注意什么？,先算不饱和度，再按碳链异构、官能团异构、位置异构有序书写,先确定不饱和度判断官能团类型，再有序书写避免重复遗漏。
+sc_g12s2_q1,senior_chemistry_g12s2,sc_g12s2_c1,sc_g12s2_kp1,short_answer,medium,实验室制备气体的装置选择依据是什么？,反应物状态和反应条件,固固加热、固液不加热、液液加热分别选择不同发生装置。
+sc_g12s2_q2,senior_chemistry_g12s2,sc_g12s2_c2,sc_g12s2_kp2,short_answer,medium,化学主观题的答题规范要点有哪些？,化学用语规范、方程式配平、条件标注完整,方程式要配平并标注条件，化学用语书写准确，单位换算正确。

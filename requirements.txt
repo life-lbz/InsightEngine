@@ -1,0 +1,78 @@
+# ============================================================
+# Insight_engine 在线教育答疑 RAG 系统依赖（Docker 镜像使用）
+# 由 environment.yml 转换：conda 包名映射为 pip 包名
+# 生产镜像不含测试/代码质量工具（pytest/mypy/ruff/bandit）
+# PyTorch CPU 版由 Dockerfile 通过 --index-url 单独安装（见 Dockerfile）
+# 所有版本已锁定为 == 精确版本，确保构建可复现
+# ============================================================
+
+# ── Web 框架 ──
+fastapi==0.141.1
+uvicorn==0.52.3
+python-multipart==0.0.32
+
+# ── 配置与数据验证 ──
+pydantic==2.13.4
+pydantic-settings==2.15.0
+
+# ── 数据库 ──
+SQLAlchemy==2.0.52
+PyMySQL==1.2.0
+alembic==1.19.1
+
+# ── 缓存 ──
+redis==8.1.0
+
+# ── HTTP 客户端 ──
+httpx==0.28.1
+
+# ── 可观测性 ──
+structlog==26.1.0
+prometheus-client==0.26.0
+
+# ── 安全 ──
+PyJWT==2.13.0
+bcrypt==5.0.0
+
+# ── 重试机制 ──
+tenacity==8.5.0
+
+# ── 数据处理 ──
+pandas==3.0.5
+openpyxl==3.1.5
+pdfplumber==0.11.10
+python-docx==1.2.0
+python-pptx==1.0.2
+chardet==7.5.1
+PyYAML==6.0.3
+numpy==2.5.2
+
+# ── LLM 与 LangChain 生态（精确锁定，与 environment.yml 一致）──
+langchain-core==0.3.10
+langchain-openai==0.3.0
+openai==1.54.0
+
+# ── 多 Agent 协作（LangGraph 编排）──
+langgraph==0.2.39
+langgraph-supervisor==0.0.4
+langgraph-checkpoint-redis==0.1.1
+
+# ── MCP 协议（外部能力标准化暴露）──
+langchain-mcp-adapters==0.2.0
+mcp==1.0.0
+
+# ── BGE-M3 Embedding + BGE-Reranker ──
+FlagEmbedding==1.2.10
+
+# ── 意图分类（BERT 可选加载，torch 由 Dockerfile 单独安装 CPU 版）──
+transformers==4.44.2
+
+# ── RAG 效果评估数据集（scripts/rag_eval.py 使用）──
+datasets==3.0.1
+# 可选：ragas==0.1.19（RAGAS 精确评估。注意其依赖 langchain 全家桶且无版本上限，
+# 会与上方锁定的 langchain-core==0.3.10 冲突，请单独建评估环境使用；
+# 未安装时 rag_eval.py 自动降级为启发式评估 evaluate_heuristic）
+
+# ── 向量存储（pymilvus 2.3.x 需 marshmallow<4）──
+pymilvus==2.3.7
+marshmallow==3.22.0

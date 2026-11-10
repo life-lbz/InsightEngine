@@ -1,0 +1,27 @@
+[
+  {
+    "question": "Python 中变量是什么？",
+    "ground_truth": "变量是存储数据的容器，通过赋值语句创建，变量名指向内存中的值",
+    "course_id": "default_course"
+  },
+  {
+    "question": "如何理解 Python 的列表和元组区别？",
+    "ground_truth": "列表是可变序列，元组是不可变序列，元组创建后不能修改",
+    "course_id": "default_course"
+  },
+  {
+    "question": "Python 的 for 循环怎么用？",
+    "ground_truth": "for 循环用于遍历可迭代对象，语法为 for item in iterable",
+    "course_id": "default_course"
+  },
+  {
+    "question": "什么是递归函数？",
+    "ground_truth": "递归函数是调用自身的函数，需要基线条件终止递归",
+    "course_id": "default_course"
+  },
+  {
+    "question": "如何处理 Python 异常？",
+    "ground_truth": "使用 try-except 语句捕获异常，finally 块确保资源释放",
+    "course_id": "default_course"
+  }
+]

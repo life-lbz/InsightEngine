@@ -1,0 +1,82 @@
+groups:
+  - name: insight-engine-alerts
+    rules:
+      # ── API 可用性 ──
+      - alert: ApiDown
+        expr: up{job="insight-engine-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API 服务不可用"
+          description: "{{ $labels.instance }} 已离线超过 1 分钟"
+
+      # ── 高错误率 ──
+      - alert: HighErrorRate
+        expr: |
+          rate(rag_errors_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAG 错误率过高"
+          description: "最近 5 分钟错误率: {{ $value }} 次/秒"
+
+      # ── P99 延迟过高 ──
+      - alert: HighLatencyP99
+        expr: |
+          histogram_quantile(0.99, rate(rag_request_duration_seconds_bucket[5m])) > 8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P99 端到端延迟超过 8s"
+          description: "当前 P99: {{ $value }}s"
+
+      # ── 首 Token 延迟过高 ──
+      - alert: HighFirstTokenLatency
+        expr: |
+          histogram_quantile(0.95, rate(rag_first_token_latency_seconds_bucket[5m])) > 1.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "首 Token P95 延迟超过 1.5s"
+
+      # ── Milvus 连接异常 ──
+      - alert: MilvusUnhealthy
+        expr: up{job="milvus"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Milvus 向量库不可用"
+
+      # ── Redis 连接异常 ──
+      - alert: RedisUnhealthy
+        expr: up{job="redis"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis 缓存不可用"
+
+      # ── MySQL 连接池耗尽 ──
+      - alert: MysqlConnectionPoolExhausted
+        expr: |
+          mysql_connection_pool_active / mysql_connection_pool_max > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL 连接池使用率超过 80%"
+
+      # ── 幻觉率过高 ──
+      - alert: HighHallucinationRate
+        expr: |
+          rate(rag_hallucination_detected_total[1h]) / rate(rag_requests_total[1h]) > 0.03
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "幻觉率超过 3%"

@@ -1,0 +1,39 @@
+# 教育答疑 RAG 系统配置
+# 修改本文件即可切换向量库 / LLM / Loader，无需改动 core/
+
+vector_store:
+  type: milvus
+  uri: http://127.0.0.1:19530
+  collection_name: edu_doc_hybrid_v1
+  # username: root
+  # password: Milvus
+
+llm:
+  type: openai_compatible
+  model: deepseek-chat
+  base_url: https://api.deepseek.com
+  api_key: ${LLM_API_KEY}
+  temperature: 0.3
+  max_tokens: 2048
+  timeout: 30
+  max_retries: 2
+
+loader:
+  type: native
+
+# 检索策略
+retrieval:
+  top_k: 5
+  rerank_top_k: 3
+  faq_score_threshold: 0.75
+  doc_score_threshold: 0.60
+
+# 缓存
+cache:
+  answer_ttl: 3600
+  search_ttl: 300
+
+# 限流
+rate_limit:
+  per_minute: 60
+  burst: 10
